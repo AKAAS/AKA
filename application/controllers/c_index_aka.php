@@ -7,7 +7,6 @@ class c_index_aka extends CI_Controller {
 	function __Construct()
 	{
 		parent::__construct();
-		$this->load->model('m_aka');
 	
 	}
 
