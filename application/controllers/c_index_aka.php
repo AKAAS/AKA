@@ -466,7 +466,7 @@ class c_index_aka extends CI_Controller {
 		$this->load->view('content',$data);
 	}
 	public function frs_cart(){
-		$id_frs = $this->input->post('ambil_frs');
+		$id_frs = $this->uri->segment(4);
 		$mk = $this->m_aka->frs_id($id_frs);
 		$data_cart = array(
 			'id_detail'=>$mk->id_e,

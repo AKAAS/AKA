@@ -35,6 +35,7 @@
 		  <script src="assets/js/excanvas.min.js"></script>
 		<![endif]-->
 
+		<script src="<?php echo base_url(); ?>assets/js/oAjax.js"></script><!--Membuat Object Ajax-->
 		<script src="<?php echo base_url(); ?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>

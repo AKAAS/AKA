@@ -129,7 +129,7 @@
 					$no = 1;
 					foreach ($data_frs->result() as $row) {			 
 				?>
-				<form metho='POST' name='frs' action='<?php echo base_url();?>c_index_aka/<?php echo $this->uri->segment(3); ?>/frs_cart'>
+				<form metho='POST' name='frs' action=''>
 					<tr>
 						<td><center><?php echo $no;?></center></td>
 						<td><?php echo $row->kode_mk_d; ?></td>
@@ -139,20 +139,48 @@
 						<td><?php echo $row->nama_kelas; ?></td>
 						<td><?php echo $row->smt; ?></td>
 						<td>
-							<label>
-								<input name='ambil_frs' type='checkbox' value='<?php echo $row->id_e; ?>'><span class='lbl'>Ambil</span>
-							</label>
+							<a href='<?php echo base_url(); ?>c_index_aka/frs_cart/<?php echo $this->uri->segment(3); ?>/<?php echo $row->id_e ?>' id='<?php echo $row->id_e; ?>'><button class='btn btn-primary' onclick='javascript:proses();'>Ambil</button</a>
+<!--							<label>
+								<input name='ambil_frs' type='checkbox' value='<?php echo $row->id_e; ?>' onClick='javascript:pilih('<?php echo $row->id_e; ?>');'><span class='lbl'>Ambil</span>
+							</label>-->
 						</td>
 					</tr>
 					<?php
 						$no++;
-					} ?>
-					<tr>
-					<div class='form-action'>
-						<td colspan='8'><input style='float:right;margin-right:40px;' type='submit' name='submit' class='btn btn-info' value='Selesai'></td>
-					</div>
-					</tr>					
+					} ?>					
 				</tbody>
 			</table>
 </div>
+<?php
+if($this->cart->contents() >= 1){
+	foreach($this->cart->contents() as $mk){
+		echo $mk['rowid'];
+			
+	}
+}else{
+	echo"Masih engga ada bos";
+}
+?>
 </div><!--/.page-content-->
+<script type="text/javascript">
+		var XMLObject = createObjectAjax();
+		function proses(){
+			if(document.forms['frs'].button.onClick){
+				document.forms['frs'].button.getElementById('<?php echo $this->$uri->segment(4); ?>').innerHTML = 
+			}
+		}
+		function pilih(id){
+			if(document.frs.ambil_frs.checked){
+				var url = "<?php echo base_url(); ?>/c_index_aka/frs_cart/" + id;
+				XMLObject.open('GET',url,true);
+				XMLObject.onreadystatechnge = function(){
+					if(XMLObject.readyState == 4){
+						if(XMLObject.status == 200){
+
+						}
+					}
+				}
+				XMLObject.send(null);
+			}
+		}
+</script>
