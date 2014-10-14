@@ -90,7 +90,7 @@
 								SKS  
 								</div>
 								<div class='span5'>
-								<div id='sks_mahasiswa'><?php echo $row_mahasiswa->sks; ?></div>
+								<label id='sks_mahasiswa'><?php echo $row_mahasiswa->sks; ?>
 								</div>
 							</td>
 					</h3>
@@ -113,40 +113,32 @@
 						<th><center>No</center></th>
 						<th>Kode MK</th>
 						<th>Mata Kuliah</th>
-						<th>SKS</th>
-						<th>Sisa Kuota Kelas</th>
 						<th>Kelas</th>
-						<th>Semester</th>
-						<th>Action</th>
+						<th>SKS</th>						
 					</tr>
 				</thead>
 
 				<tbody>
 
 				<?php
-				echo $this->m_aka->msg('frs','alert-error');
 					//Loop data
 					$no = 1;
-					foreach ($data_frs->result() as $row) {			 
+					foreach ($cart_content->result() as $row) {			 
 				?>
-				<form metho='POST' name='frs' action='<?php echo base_url();?>c_index_aka/<?php echo $this->uri->segment(3); ?>/frs_cart'>
+				<form metho='POST' name='frs' action='<?php echo base_url();?>c_index_aka/save_frs'>
 					<tr>
 						<td><center><?php echo $no;?></center></td>
-						<td><?php echo $row->kode_mk_d; ?></td>
-						<td><?php echo $row->nama_mk_a; ?></td>
-						<td><label id='sks'><?php echo $row->jumlah_sks; ?></label></td>
-						<td><label id='sisa_kuota'><?php echo $row->isi; ?></label></td>
-						<td><?php echo $row->nama_kelas; ?></td>
-						<td><?php echo $row->smt; ?></td>
-						<td>
-							<label>
-								<input name='ambil_frs' type='checkbox' value='<?php echo $row->id_e; ?>'><span class='lbl'>Ambil</span>
-							</label>
-						</td>
+						<td><?php echo $row->kode_mk; ?></td>
+						<td><?php echo $row->nama_mk; ?></td>
+						<td><?php echo $row->nama_kelas_mk; ?></td>						
+						<td><?php echo $row->sks_mk; ?></td>
 					</tr>
 					<?php
 						$no++;
 					} ?>
+					<tr>
+						
+					</tr>				
 					<tr>
 					<div class='form-action'>
 						<td colspan='8'><input style='float:right;margin-right:40px;' type='submit' name='submit' class='btn btn-info' value='Selesai'></td>

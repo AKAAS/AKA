@@ -600,7 +600,7 @@ function input_nilai(){
 			return $query_frs;
 	}
 	public function frs_id($id_frs){
-		$query = $this->db->get_where('t_detail_kuota_matkul',array('id'=>$id_frs));
+		$query = $this->db->query("SELECT *,e.id as id_e,b.nim as nim_b,e.id as id_e,a.nama_mk as nama_mk_a,d.kode_mk as kode_mk_d,a.kode_mk as kode_mk_a,e.id_kuota FROM t_mk as a,t_dump as b,t_mahasiswa as c,t_kuota_matkul_pilihan as d, t_detail_kuota_matkul as e WHERE a.semester=b.smt AND b.nim=c.nim AND a.kode_mk=d.kode_mk AND e.id_kuota=d.id AND e.id=$id");
 		return $query->row();
 	}
 	public function frs_data_id($id){
