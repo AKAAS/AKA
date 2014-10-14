@@ -577,7 +577,7 @@ function input_nilai(){
 	/*===================================== END JADWAL KULIAH ==================== */
 	
 	/*===================================== PENGISIAN FRS ==================== */
-	public function cari_nim(){
+	function cari_nim(){
 	
 		$nim=$this->input->post('nim');
 		$query = $this->db->query("SELECT * FROM t_dump,t_mahasiswa WHERE t_dump.nim=t_mahasiswa.nim AND t_dump.nim LIKE '%$nim%'");
@@ -587,12 +587,36 @@ function input_nilai(){
 		}return $query->result();
 
 	}
+	public function frs($nim){
+
+//		$query = $this->db->query("SELECT t_detail_kuota_matkul.nama_kelas,t_mk.semester as semestermk,t_detail_kuota_matkul.id as 
+//			id_detail_kuota,t_mahasiswa.nama as nama_mahasiswa,t_mk.nama_mk as mata_kuliah,t_mk.kode_mk as kode_mk,t_mk.jumlah_sks as jumlah_sks,t_detail_kuota_matkul.isi as isi  
+//			FROM t_kuota_matkul_pilihan,t_detail_kuota_matkul,t_mk,t_mahasiswa,t_dump WHERE
+//			t_mk.kode_mk = t_kuota_matkul_pilihan.kode_mk AND t_detail_kuota_matkul.id_kuota = t_kuota_matkul_pilihan.id AND t_mahasiswa.nim='$nim' AND t_mahasiswa.nim=t_dump.nim") ;
+			$query_frs = $this->db->query("SELECT *,b.nim as nim_b,e.id as id_e,a.nama_mk as nama_mk_a,d.kode_mk as kode_mk_d,a.kode_mk as kode_mk_a,e.id_kuota FROM t_mk as a,t_dump as b,t_mahasiswa as c,t_kuota_matkul_pilihan as d, t_detail_kuota_matkul as e WHERE a.semester=b.smt AND b.nim=c.nim AND c.nim='$nim' AND a.kode_mk=d.kode_mk AND e.id_kuota=d.id");
+			if($query_frs->num_rows() <= 1){
+				$this->session->set_userdata('frs','Maaf data anda tidak ada');
+			}
+			return $query_frs;
+	}
+	public function frs_id($id_frs){
+		$query = $this->db->get_where('t_detail_kuota_matkul',array('id'=>$id_frs));
+		return $query->row();
+	}
+	public function frs_data_id($id){
+		return $query = $this->db->query("SELECT a.nim as nim_a,b.nama as nama_mhs,a.smt,a.sks FROM t_dump as a,t_mahasiswa as b WHERE a.nim=b.nim AND a.nim='$id'");
+	}
+
 
 	//Get Notification
-	public function msg($msg){
+	public function msg($msg,$style){
 		if($this->session->userdata($msg)){
 			$messege =$this->session->userdata($msg);
-			echo "<div class=''>$messege</div>";//css alert alert$style
+			echo "<div class='alert $style'>
+					<button type='button' class='close' data-dismiss='alert'>
+					<i class='icon-remove'>
+					</i>
+					</button>$messege</div>";//css alert alert$style
 			$this->session->unset_userdata($msg);
 		}
 

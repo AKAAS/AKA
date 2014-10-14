@@ -459,18 +459,24 @@ class c_index_aka extends CI_Controller {
 		}		
 	}
 	public function frs(){
-		$id_frs = $this->uri-segment('3');
+		$nim = $this->uri->segment(3);
+		$data['data_frs'] = $this->m_aka->frs($nim);
+		$data['data_mhs'] = $this->m_aka->frs_data_id($nim);
+		$data['content']='mahasiswa/ch_frs';
+		$this->load->view('content',$data);
 	}
+	public function frs_cart(){
+		$id_frs = $this->input->post('ambil_frs');
+		$mk = $this->m_aka->frs_id($id_frs);
 
+	}
 
 	//Logout 
 
 	public function logout()
 	{
-
 		$this->session->sess_destroy();
 		redirect('c_index_aka/login');
-
 	}
 }
 

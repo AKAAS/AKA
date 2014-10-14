@@ -39,61 +39,120 @@
 		</div>	
 	</div><!--/.row-fluid-->
 	<br>
+	<div class='row-fluid'>
+		<div class='control-group'>
+			<div class='controls'>
+				<div class="table-header">
+					Data Mahasiswa
+				</div>
+<?php
+				$row_mahasiswa = $data_mhs->row();
+?>				
+				<table id="sample-table-2" class="table table-striped table-bordered table-hover">				
+					<tbody>
+						<tr>
+							<td>
+					<h3>								
+								<div class='span4'>	
+								NIM  
+								</div>
+								<div class='span5'>
+								<?php echo $row_mahasiswa->nim_a; ?>
+								</div> 
+							</td>
+					</h3>
+							<td>
+					<h3>								
+								<div class='span4'>
+								Semester  
+								</div>
+								<div class='span5'>
+								<?php echo $row_mahasiswa->smt; ?>
+								</div>
+							</td>
+					</h3>
+						</tr>
+						<tr>
+							<td>
+					<h3>								
+								<div class='span4'>	
+								Nama  
+								</div>
+								<div class='span5'>
+								<?php echo $row_mahasiswa->nama_mhs; ?>									
+								</div> 
+							</td>
+					</h3>
+					
+							<td>
+					<h3>								
+								<div class='span4'>
+								SKS  
+								</div>
+								<div class='span5'>
+								<?php echo $row_mahasiswa->sks; ?>
+								</div>
+							</td>
+					</h3>
+						
+						</tr>						
+					</tbody>
+			</table>
+
+			</div>
+		</div>
+	</div>
 <div class="row-fluid">
+
 			<div class="table-header">
-				Results for "hasil pencarian Mahasiswa"
+				Formulir Rencana Studi
 			</div>
 			<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
 						<th><center>No</center></th>
-						<th>NIM</th>
-						<th>Nama Mahasiswa</th>
+						<th>Kode MK</th>
+						<th>Mata Kuliah</th>
+						<th>SKS</th>
+						<th>Sisa Kuota Kelas</th>
+						<th>Kelas</th>
 						<th>Semester</th>
-						<th>Jumlah SKS</th>
-						<th>Action
-						</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					
-				<?php
 
+				<?php
+				echo $this->m_aka->msg('frs','alert-error');
 					//Loop data
 					$no = 1;
-					foreach ($query as $row) {			 
+					foreach ($data_frs->result() as $row) {			 
 				?>
+				<form metho='POST' action='<?php echo base_url();?>c_index_aka/$this->uri->segment(3)/frs_cart'>
 					<tr>
 						<td><center><?php echo $no;?></center></td>
-						<td><?php echo $row->nim; ?></td>
-						<td><?php echo $row->nama; ?></td>
+						<td><?php echo $row->kode_mk_d; ?></td>
+						<td><?php echo $row->nama_mk_a; ?></td>
+						<td><?php echo $row->jumlah_sks; ?></td>
+						<td><?php echo $row->isi; ?></td>
+						<td><?php echo $row->nama_kelas; ?></td>
 						<td><?php echo $row->smt; ?></td>
-						<?php 
-						$jml_sks = $row->sks;
-						if($jml_sks <= 0 ){
-						?>
-							<td><span class="label label-info arrowed arrowed-righ">Habis</span></td>							
-						<?php	
-						}else{
-						?>
-							<td><?php echo $row->sks; ?></td>						
-						<?php
-						}
-						?>
-						<td class="td-actions">
-							<div class="hidden-phone visible-desktop action-buttons">
-								<a class="green" href="<?php echo base_url(); ?>c_index_aka/frs/<?php echo $row->id; ?>">
-									<span class="label label-info arrowed arrowed-righ" style='width:20px;'>Isi</span>
-								</a>
-							</div>
+						<td>
+							<label>
+								<input name='ambil_frs' type='checkbox' value='<?php echo $row->id_e; ?>'><span class='lbl'>Ambil</span>
+							</label>
 						</td>
 					</tr>
 					<?php
 						$no++;
 					} ?>
+					<tr>
+					<div class='form-action'>
+						<td colspan='8'><input style='float:right;margin-right:40px;' type='submit' name='submit' class='btn btn-info' value='Selesai'></td>
+					</div>
+					</tr>					
 				</tbody>
 			</table>
 </div>
 </div><!--/.page-content-->
-

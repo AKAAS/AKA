@@ -49,7 +49,7 @@
 
 <div class="row-fluid">
 			<div class="table-header">
-				Results for "hasil pencarian Mahasiswa" <?php echo $this->m_aka->msg('msg_cari_nim'); ?>
+				Results for "hasil pencarian Mahasiswa" 
 			</div>
 			<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 				<thead>
@@ -64,8 +64,7 @@
 					</tr>
 				</thead>
 
-				<tbody>
-					
+				<tbody>				
 				<?php
 					//Loop data
 					$no = 1;
@@ -80,7 +79,7 @@
 						$jml_sks = $row->sks;
 						if($jml_sks <= 0 ){
 						?>
-							<td><span class="label label-info arrowed arrowed-righ">Habis</span></td>							
+							<td><span class="label label-important arrowed">Habis</span></td>							
 						<?php	
 						}else{
 						?>
@@ -90,7 +89,7 @@
 						?>
 						<td class="td-actions">
 							<div class="hidden-phone visible-desktop action-buttons">
-								<a class="green" href="<?php echo base_url(); ?>c_index_aka/frs/<?php echo $row->id; ?>">
+								<a class="green" href="<?php echo base_url(); ?>c_index_aka/frs/<?php echo $row->nim; ?>">
 									<span class="label label-info arrowed arrowed-righ" style='width:20px;'>Isi</span>
 								</a>
 							</div>
@@ -100,6 +99,7 @@
 						$no++;
 					}
 					 ?>
+<?php echo $this->m_aka->msg('msg_cari_nim','alert-eror'); ?>					 
 				</tbody>
 			</table>
 </div>
