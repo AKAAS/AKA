@@ -1,3 +1,4 @@
+
 <div class="main-content">
 <div class="breadcrumbs" id="breadcrumbs">
 <ul class="breadcrumb">
@@ -11,10 +12,8 @@
 	</li>
 	<li class="active">Data Mahasiswa</li>
 </ul><!--.breadcrumb-->
-
-
-
 </div>
+
 
 <div class="page-content">
 <div class="page-header position-relative">
@@ -129,17 +128,38 @@
 					$no = 1;
 					foreach ($data_frs->result() as $row) {			 
 				?>
-				<form metho='POST' name='frs' action=''>
 					<tr>
 						<td><center><?php echo $no;?></center></td>
 						<td><?php echo $row->kode_mk_d; ?></td>
 						<td><?php echo $row->nama_mk_a; ?></td>
-						<td><label id='sks'><?php echo $row->jumlah_sks; ?></label></td>
-						<td><label id='sisa_kuota'><?php echo $row->isi; ?></label></td>
+						<td><div id='<?php echo $row->jumlah_sks; ?>'><?php echo $row->jumlah_sks; ?></div></td>
+						<td><div id='<?php echo $row->isi; ?>'><?php echo $row->isi; ?></div></td>
 						<td><?php echo $row->nama_kelas; ?></td>
 						<td><?php echo $row->smt; ?></td>
 						<td>
-							<a href='<?php echo base_url(); ?>c_index_aka/frs_cart/<?php echo $this->uri->segment(3); ?>/<?php echo $row->id_e ?>' id='<?php echo $row->id_e; ?>'><button class='btn btn-primary' onclick='javascript:proses();'>Ambil</button</a>
+							<button id='<?php echo $row->id_e; ?>' onClick='javascript:prosescart(<?php echo $row->id_e; ?>,<?php echo $row->id_e; ?>),<?php echo $row->jumlah_sks; ?>,<?php echo $row->isi; ?>;'>Ambil</button>
+<script type='text/javascript'>
+		var XMLObject = createObjectAjax();
+
+	function prosescart(id_e,nim,sks,sisa_kuota){
+		document.getElementById(id_e).disabled = true;
+
+		var tot = document.getElementById(getElementById('sks') - sks);
+		document.write(tot);
+		var url = '<?php echo base_url(); ?>/c_index_aka/frs_cart/'+nim+id_e;
+		if(document.getElementById(a).onClick = a){
+			XMLObject.open('GET',url,true);
+			XMLObject.onreadystatechange = function(){
+				if(XMLObject.readyState == 4){
+					if(XMLObject.status == 200){
+						document.getElementById('Isi').innerHTML=XMLObject.responseText;
+					}
+				}
+			}
+			XMLObject.send(null); 
+		}
+	}
+</script>
 <!--							<label>
 								<input name='ambil_frs' type='checkbox' value='<?php echo $row->id_e; ?>' onClick='javascript:pilih('<?php echo $row->id_e; ?>');'><span class='lbl'>Ambil</span>
 							</label>-->
@@ -151,24 +171,9 @@
 				</tbody>
 			</table>
 </div>
-<?php
-if($this->cart->contents() >= 1){
-	foreach($this->cart->contents() as $mk){
-		echo $mk['rowid'];
-			
-	}
-}else{
-	echo"Masih engga ada bos";
-}
-?>
 </div><!--/.page-content-->
 <script type="text/javascript">
-		var XMLObject = createObjectAjax();
-		function proses(){
-			if(document.forms['frs'].button.onClick){
-				document.forms['frs'].button.getElementById('<?php echo $this->$uri->segment(4); ?>').innerHTML = 
-			}
-		}
+
 		function pilih(id){
 			if(document.frs.ambil_frs.checked){
 				var url = "<?php echo base_url(); ?>/c_index_aka/frs_cart/" + id;
@@ -183,4 +188,6 @@ if($this->cart->contents() >= 1){
 				XMLObject.send(null);
 			}
 		}
+
 </script>
+

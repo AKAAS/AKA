@@ -469,18 +469,16 @@ class c_index_aka extends CI_Controller {
 		$id_frs = $this->uri->segment(4);
 		$mk = $this->m_aka->frs_id($id_frs);
 		$data_cart = array(
-			'id_detail'=>$mk->id_e,
-			'kode_mk'=>$mk->kode_mk_a,
-			'nama_mk'=>$mk->nama_mk_a,
-			'nama_kelas_mk'=>$mk->nama_kelas,			
-			'sks_mk'=>$mk->jumlah_sks,
+			'id'=>1,
+			'qty'=>1,
+			'nama'=>'wkwk',
+			'price'=>10000,
 			);
-		if($this->cart->insert($data_cart)){
+		$this->cart->insert($data_cart);
 		$data['cart_content'] = $this->cart->contents();	
 		$data['data_mhs'] = $this->m_aka->frs_data_id($mk->nim_b);			
 			$data['content']='mahasiswa/frs_cart';
 			$this->load->view('content',$data);
-		}
 	}
 	//Logout 
 
