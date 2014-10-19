@@ -105,6 +105,7 @@
 			<div class="table-header">
 				Formulir Rencana Studi
 			</div>
+			<form method='POST' action='<?php echo base_url(); ?>c_index_aka/simpan_frs' name='frs'>
 			<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -127,22 +128,35 @@
 					$no = 1;
 					foreach ($data_frs->result() as $row) {			 
 				?>
-					<tr id='<?php echo $row->id; ?>'>
-						<td><input type="checkbox" id="id-disable-check" name='id_detail_kuota' value=''><label class="lbl" for="id-disable-check"> </label></td>
+					<tr onClick="javascript:rowOn(<?php echo $row->id_e; ?>,<?php echo $row->jumlah_sks; ?>,<?php echo $row->isi; ?>,<?php echo $row_mahasiswa->sks; ?>)" id='trFrs'>
+
+<script>
+	function rowOn(id_e,jumlah_sks,isi,sks_mahasiswa){
+		if(!document.getElementById(id_e).checked){			
+			document.getElementById(id_e).checked = true;
+		}else{
+			 document.getElementById(id_e).checked = false;
+		}				
+
+
+	}
+
+</script>												
+
+						<td><input type="checkbox" id="<?php echo $row->id_e; ?>" name='id_detail_kuota' value='<?php echo $row->id_e; ?>' title='<?php echo $row->id_e; ?>'><label class="lbl" for="id-disable-check"> </label></td>
 						<td><center><?php echo $no;?></center></td>
 						<td><?php echo $row->kode_mk_d; ?></td>
 						<td><?php echo $row->nama_mk_a; ?></td>
-						<td><div id='<?php echo $row->jumlah_sks; ?>'><?php echo $row->jumlah_sks; ?></div></td>
-						<td><div id='<?php echo $row->isi; ?>'><?php echo $row->isi; ?></div></td>
+						<td><div id='<?php echo $row->jumlah_sks; ?>' name='jumlah_sks'><?php echo $row->jumlah_sks; ?></div></td>
+						<td><div id='<?php echo $row->isi; ?>' name='isi'><?php echo $row->isi; ?></div></td>
 						<td><?php echo $row->nama_kelas; ?></td>
 						<td><?php echo $row->smt; ?></td>
 					</tr>
+
 					<?php
 						$no++;
 					} ?>
 					<tr>
-<script>
-</script>
 					<td colspan ='8'>
 							<input style='float:right' type="submit" name="add_frs" value ="Save" class="btn btn-info">
 					</td>
