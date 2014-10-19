@@ -155,7 +155,10 @@ function createObjectAjax(){
 
 <script>
 	function rowOn(id_e,jumlah_sks,isi,sks_mahasiswa){
+<<<<<<< HEAD
 			var perhitungan = sks_mahasiswa - jumlah_sks;
+=======
+>>>>>>> fd7bc43499e0f2d04ba0bbbf6ff8f6bef332c93c
 		if(!document.getElementById(id_e).checked){			
 			document.getElementById(id_e).checked = true;
 		}else{
