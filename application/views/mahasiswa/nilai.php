@@ -28,7 +28,7 @@
 		Mahasiswa
 		<small>
 			<i class="icon-double-angle-right"></i>
-			Pengisian FRS
+			Pengisian Nilai
 		</small>
 	</h1>
 </div><!--/.page-header-->
@@ -38,9 +38,25 @@
 		<div class="control-group">		
 				<div class="controls">
 				<form method="post" action='<?php echo base_url(); ?>c_index_aka/cari_nim'>
-					<label class="control-label" for="form-field-1">Cari NIM Mahasiswa</label>
-					<input type="text" id="form-field-1" placeholder="berdasarkan NIM" name="nim"/>
-					<input type ="submit" name="cari" value="Cari" class="btn btn-info"/>
+					<select name='jenis_cari'>
+						<option value='nim'>NIM</option>
+						<option value='mk'>Mata Kuliah</option>						
+					</select>
+					<script>
+					if(getElementsByTagName('jenis_cari').value='nim'){
+
+					}
+					</script>
+					<div id='nim'>
+						<label class="control-label" for="form-field-1">Cari NIM Mahasiswa</label>
+						<input type="text" id="form-field-1" placeholder="berdasarkan NIM" name="nim"/>
+						<input type ="submit" name="cari" value="Cari" class="btn btn-info"/>
+					</div>
+					<div id='nim'>
+						<label class="control-label" for="form-field-1">Cari NIM Mahasiswa</label>
+						<input type="text" id="form-field-1" placeholder="berdasarkan NIM" name="nim"/>
+						<input type ="submit" name="cari" value="Cari" class="btn btn-info"/>
+					</div>					
 				</form>
 				</div>
 		</div>

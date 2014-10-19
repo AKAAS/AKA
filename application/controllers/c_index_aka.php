@@ -456,6 +456,9 @@ class c_index_aka extends CI_Controller {
 		$data['content']='mahasiswa/list_frs';
 		if($cari){
 				$this->load->view('content',$data);		
+		}else{
+				$data['data_frs'] = $this->m_aka->frs();
+				$this->load->view('content',$data);
 		}		
 	}
 	public function frs(){
@@ -467,18 +470,38 @@ class c_index_aka extends CI_Controller {
 	}
 	public function frs_cart(){
 		$id_frs = $this->uri->segment(4);
+		$nim =$this->uri->segment(3);
 		$mk = $this->m_aka->frs_id($id_frs);
-		$data_cart = array(
-			'id'=>1,
-			'qty'=>1,
-			'nama'=>'wkwk',
-			'price'=>10000,
-			);
-		$this->cart->insert($data_cart);
-		$data['cart_content'] = $this->cart->contents();	
-		$data['data_mhs'] = $this->m_aka->frs_data_id($mk->nim_b);			
-			$data['content']='mahasiswa/frs_cart';
-			$this->load->view('content',$data);
+		$data['data_mhs'] = $this->m_aka->frs_data_id($nim);
+		$sks_mhs = $data['data_mhs']->row();
+		$data['nim'] = $this->uri->segment(3);
+		$data = array(array(
+				'id'	=> $mk->id_e,
+				'qty'	=> 1,
+				'nim'	=>$mk->nim_b,
+	            'price'   => $mk->jumlah_sks,
+ 		        'name'    => $mk->nama_mk_a,
+ 		        'id_mhs'	=>$mk->id_b,
+               'nama_kelas' => $mk->nama_kelas,  
+               'kode_mk' => $mk->kode_mk_d            
+            ));	
+			$this->cart->insert($data);
+			$this->load->view('mahasiswa/frs_cart',$data);
+	}
+	public function dell(){
+		$this->cart->destroy();
+		redirect('c_index_aka/cari_nim');
+	}
+	public function simpan_frs(){
+		$val = $this->cart->contents();
+		$query = $this->m_aka->simpan_frs($val);
+		if($query){
+			$this->session->set_userdata('msg_simpan','Pengambilan FRS telah berhasil.');
+			redirect('c_index_aka/cari_nim');
+		}else{
+			$this->session->set_userdata('msg_simpan','Gagal, periska jumlah SKS.');
+			redirect('c_index_aka/frs');			
+		}
 	}
 	//Logout 
 

@@ -14,6 +14,8 @@ function createObjectAjax(){
 	}
 	if(!v_brow){
 		window.alert('Browser anda versi lama/Javascript masih off');
+	}else{
+		window.alert('Connect');
 	}
 	return v_brow;
 }

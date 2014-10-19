@@ -99,7 +99,8 @@
 						$no++;
 					}
 					 ?>
-<?php echo $this->m_aka->msg('msg_cari_nim','alert-eror'); ?>					 
+<?php echo $this->m_aka->msg('msg_cari_nim','alert-eror'); ?>	
+<?php echo $this->m_aka->msg('msg_simpan','alert-succes'); ?>					 
 				</tbody>
 			</table>
 </div>

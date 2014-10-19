@@ -1,4 +1,26 @@
 
+<script>
+function createObjectAjax(){
+	var v_brow = false;
+	try{
+		v_brow = new ActiveXObject('MXXML2.XMLHTTP');
+	}catch(e){
+		try{
+		v_brow = new ActiveXObject('Microsoft.XMLHTTP');	
+		}catch(e2){
+		v_brow = false;
+		}
+	}
+	if(!v_brow && typeof XMLHttpRequest !='undefined'){
+		v_brow = new XMLHttpRequest();
+	}
+	if(!v_brow){
+		window.alert('Browser anda versi lama/Javascript masih off');
+	}
+	return v_brow;
+}
+</script>
+
 <div class="main-content">
 <div class="breadcrumbs" id="breadcrumbs">
 <ul class="breadcrumb">
@@ -137,29 +159,7 @@
 						<td><?php echo $row->nama_kelas; ?></td>
 						<td><?php echo $row->smt; ?></td>
 						<td>
-							<button id='<?php echo $row->id_e; ?>' onClick='javascript:prosescart(<?php echo $row->id_e; ?>,<?php echo $row->id_e; ?>),<?php echo $row->jumlah_sks; ?>,<?php echo $row->isi; ?>;'>Ambil</button>
-<script type='text/javascript'>
-		var XMLObject = createObjectAjax();
-
-	function prosescart(id_e,nim,sks,sisa_kuota){
-		document.getElementById(id_e).disabled = true;
-
-		var tot = document.getElementById(getElementById('sks') - sks);
-		document.write(tot);
-		var url = '<?php echo base_url(); ?>/c_index_aka/frs_cart/'+nim+id_e;
-		if(document.getElementById(a).onClick = a){
-			XMLObject.open('GET',url,true);
-			XMLObject.onreadystatechange = function(){
-				if(XMLObject.readyState == 4){
-					if(XMLObject.status == 200){
-						document.getElementById('Isi').innerHTML=XMLObject.responseText;
-					}
-				}
-			}
-			XMLObject.send(null); 
-		}
-	}
-</script>
+							<button name='btn_frs' id='<?php echo $row->id_e; ?>' onClick='javascript:prosescart(<?php echo $row->id_e; ?>,<?php echo $row->nim_b; ?>,<?php echo $row->jumlah_sks; ?>,<?php echo $row->isi; ?>)'>Ambil</button>
 <!--							<label>
 								<input name='ambil_frs' type='checkbox' value='<?php echo $row->id_e; ?>' onClick='javascript:pilih('<?php echo $row->id_e; ?>');'><span class='lbl'>Ambil</span>
 							</label>-->
@@ -168,26 +168,30 @@
 					<?php
 						$no++;
 					} ?>					
-				</tbody>
-			</table>
-</div>
-</div><!--/.page-content-->
-<script type="text/javascript">
+<script type='text/javascript'>
+		var XMLObject = createObjectAjax();
 
-		function pilih(id){
-			if(document.frs.ambil_frs.checked){
-				var url = "<?php echo base_url(); ?>/c_index_aka/frs_cart/" + id;
-				XMLObject.open('GET',url,true);
-				XMLObject.onreadystatechnge = function(){
-					if(XMLObject.readyState == 4){
-						if(XMLObject.status == 200){
-
-						}
-					}
-				}
-				XMLObject.send(null);
+	function prosescart(id_e,nim,sks,sisa_kuota){
+		if(document.getElementById(id_e).onClick = id_e){
+			document.getElementById(id_e).disabled = true;
+			var url = '<?php echo base_url(); ?>c_index_aka/frs_cart/'+nim+'/'+id_e;
+			setTimeout(function(){XMLObject.open('GET',url,true);
+			XMLObject.onreadystatechange = function(){
+						document.getElementById('isi').innerHTML=XMLObject.responseText;
 			}
+			XMLObject.send(null); 
+		},5000)
 		}
-
+	}
 </script>
 
+
+				</tbody>
+			</table>
+
+</div>
+</div><!--/.page-content-->
+								<div id='isi'>
+						disini
+
+</div>
