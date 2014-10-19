@@ -1,26 +1,3 @@
-
-<script>
-function createObjectAjax(){
-	var v_brow = false;
-	try{
-		v_brow = new ActiveXObject('MXXML2.XMLHTTP');
-	}catch(e){
-		try{
-		v_brow = new ActiveXObject('Microsoft.XMLHTTP');	
-		}catch(e2){
-		v_brow = false;
-		}
-	}
-	if(!v_brow && typeof XMLHttpRequest !='undefined'){
-		v_brow = new XMLHttpRequest();
-	}
-	if(!v_brow){
-		window.alert('Browser anda versi lama/Javascript masih off');
-	}
-	return v_brow;
-}
-</script>
-
 <div class="main-content">
 <div class="breadcrumbs" id="breadcrumbs">
 <ul class="breadcrumb">
@@ -131,6 +108,7 @@ function createObjectAjax(){
 			<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
+						<th>Pilih</th>
 						<th><center>No</center></th>
 						<th>Kode MK</th>
 						<th>Mata Kuliah</th>
@@ -138,7 +116,6 @@ function createObjectAjax(){
 						<th>Sisa Kuota Kelas</th>
 						<th>Kelas</th>
 						<th>Semester</th>
-						<th>Action</th>
 					</tr>
 				</thead>
 
@@ -150,7 +127,8 @@ function createObjectAjax(){
 					$no = 1;
 					foreach ($data_frs->result() as $row) {			 
 				?>
-					<tr>
+					<tr id='<?php echo $row->id; ?>'>
+						<td><input type="checkbox" id="id-disable-check" name='id_detail_kuota' value=''><label class="lbl" for="id-disable-check"> </label></td>
 						<td><center><?php echo $no;?></center></td>
 						<td><?php echo $row->kode_mk_d; ?></td>
 						<td><?php echo $row->nama_mk_a; ?></td>
@@ -158,34 +136,17 @@ function createObjectAjax(){
 						<td><div id='<?php echo $row->isi; ?>'><?php echo $row->isi; ?></div></td>
 						<td><?php echo $row->nama_kelas; ?></td>
 						<td><?php echo $row->smt; ?></td>
-						<td>
-							<button name='btn_frs' id='<?php echo $row->id_e; ?>' onClick='javascript:prosescart(<?php echo $row->id_e; ?>,<?php echo $row->nim_b; ?>,<?php echo $row->jumlah_sks; ?>,<?php echo $row->isi; ?>)'>Ambil</button>
-<!--							<label>
-								<input name='ambil_frs' type='checkbox' value='<?php echo $row->id_e; ?>' onClick='javascript:pilih('<?php echo $row->id_e; ?>');'><span class='lbl'>Ambil</span>
-							</label>-->
-						</td>
 					</tr>
 					<?php
 						$no++;
-					} ?>					
-<script type='text/javascript'>
-		var XMLObject = createObjectAjax();
-
-	function prosescart(id_e,nim,sks,sisa_kuota){
-		if(document.getElementById(id_e).onClick = id_e){
-			document.getElementById(id_e).disabled = true;
-			var url = '<?php echo base_url(); ?>c_index_aka/frs_cart/'+nim+'/'+id_e;
-			setTimeout(function(){XMLObject.open('GET',url,true);
-			XMLObject.onreadystatechange = function(){
-						document.getElementById('isi').innerHTML=XMLObject.responseText;
-			}
-			XMLObject.send(null); 
-		},5000)
-		}
-	}
+					} ?>
+					<tr>
+<script>
 </script>
-
-
+					<td colspan ='8'>
+							<input style='float:right' type="submit" name="add_frs" value ="Save" class="btn btn-info">
+					</td>
+					</tr>					
 				</tbody>
 			</table>
 

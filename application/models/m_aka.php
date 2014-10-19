@@ -593,8 +593,8 @@ function input_nilai(){
 //			id_detail_kuota,t_mahasiswa.nama as nama_mahasiswa,t_mk.nama_mk as mata_kuliah,t_mk.kode_mk as kode_mk,t_mk.jumlah_sks as jumlah_sks,t_detail_kuota_matkul.isi as isi  
 //			FROM t_kuota_matkul_pilihan,t_detail_kuota_matkul,t_mk,t_mahasiswa,t_dump WHERE
 //			t_mk.kode_mk = t_kuota_matkul_pilihan.kode_mk AND t_detail_kuota_matkul.id_kuota = t_kuota_matkul_pilihan.id AND t_mahasiswa.nim='$nim' AND t_mahasiswa.nim=t_dump.nim") ;
-			$query_frs = $this->db->query("SELECT *,b.nim as nim_b,e.id as id_e,a.nama_mk as nama_mk_a,d.kode_mk as kode_mk_d,a.kode_mk as kode_mk_a,e.id_kuota FROM t_mk as a,t_dump as b,t_mahasiswa as c,t_kuota_matkul_pilihan as d, t_detail_kuota_matkul as e,t_ambil_kuota_mhs as f WHERE a.semester=b.smt AND b.nim=c.nim AND c.nim='$nim' AND a.kode_mk=d.kode_mk AND e.id_kuota=d.id OR f.id_detail_kuota=e.id");
-			if($query_frs->num_rows() <= 1){
+			$query_frs = $this->db->query("SELECT f.nama_kelas as nama_kelas,b.smt as smt, a.jumlah_sks as jumlah_sks,e.isi as isi,b.nim as nim_b,e.id as id_e,a.nama_mk as nama_mk_a,d.kode_mk as kode_mk_d,a.kode_mk as kode_mk_a,e.id_kuota FROM t_mk as a,t_dump as b,t_mahasiswa as c,t_kuota_matkul_pilihan as d, t_detail_kuota_matkul as e, t_kelas as f WHERE a.semester=b.smt AND b.nim=c.nim AND c.nim='$nim' AND a.kode_mk=d.kode_mk AND e.id_kuota=d.id AND e.nama_kelas = f.id_kelas");
+			if($query_frs->num_rows() <= 1){	
 				$this->session->set_userdata('frs','Maaf data anda tidak ada');
 			}
 			return $query_frs;
